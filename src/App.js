@@ -30,12 +30,12 @@ export default function App() {
   const newGame = {
     a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0, j: 0, k: 0, l: 0,
     m: 0, n: 0, o: 0, p: 0, q: 0, r: 0, s: 0, t: 0, u: 0, v: 0, w: 0, x: 0,
-    y: 0, z: 0, word: [], display: [], randInt: getRandomInt(0, palavras.length - 1), count: 0
+    y: 0, z: 0, word: '', display: [], randInt: getRandomInt(0, palavras.length - 1), count: 0
   };
   const initialState = {
     a: 1, b: 1, c: 1, d: 1, e: 1, f: 1, g: 1, h: 1, i: 1, j: 1, k: 1, l: 1,
     m: 1, n: 1, o: 1, p: 1, q: 1, r: 1, s: 1, t: 1, u: 1, v: 1, w: 1, x: 1,
-    y: 1, z: 1, word: [], count: 0, display: [], randInt: getRandomInt(0, palavras.length - 1)
+    y: 1, z: 1, word: '', count: 0, display: [], randInt: getRandomInt(0, palavras.length - 1)
   }
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -43,18 +43,20 @@ export default function App() {
     switch (action.type) {
       case 'newWord':
         return {
-          ...newGame, word: Array.from(palavras[state.randInt]), display: Array(palavras[state.randInt].length).fill('_')
+          ...newGame, word: palavras[state.randInt], display: Array(palavras[state.randInt].length).fill('_')
         }
       case 'letter':
         if (state.count !== 6) {
           if (state[action.payload] === 0) {
-            if (state.word.includes(action.payload)) {
+            const normalizedWord = state.word.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+            if (normalizedWord.includes(action.payload)) {
               return {
                 ...state, [action.payload]: 1, display: changeDisplayWord(state.word, action.payload, state.display)
               }
-            }
-            return {
-              ...state, [action.payload]: 1, count: state.count + 1
+            } else {
+              return {
+                ...state, [action.payload]: 1, count: state.count + 1
+              }
             }
           } return { ...state }
         } return { ...state }
@@ -65,8 +67,8 @@ export default function App() {
 
   function changeDisplayWord(word, letter, display) {
     const newDisplay = display;
-    word.forEach((l, index) => {
-      if (letter.localeCompare(l, 'pt', { sensitivity: 'base' })) {
+    Array.from(word).forEach((l, index) => {
+      if (l.normalize("NFD").replace(/\p{Diacritic}/gu, "") === letter) {
         newDisplay[index] = l;
       }
     })
