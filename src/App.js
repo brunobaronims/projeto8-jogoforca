@@ -30,7 +30,8 @@ export default function App() {
   const newGame = {
     a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0, j: 0, k: 0, l: 0,
     m: 0, n: 0, o: 0, p: 0, q: 0, r: 0, s: 0, t: 0, u: 0, v: 0, w: 0, x: 0,
-    y: 0, z: 0, word: '', display: [], randInt: getRandomInt(0, palavras.length - 1), count: 0
+    y: 0, z: 0, word: '', display: [], randInt: getRandomInt(0, palavras.length - 1),
+    count: 0
   };
   const initialState = {
     a: 1, b: 1, c: 1, d: 1, e: 1, f: 1, g: 1, h: 1, i: 1, j: 1, k: 1, l: 1,
@@ -46,33 +47,36 @@ export default function App() {
           ...newGame, word: palavras[state.randInt], display: Array(palavras[state.randInt].length).fill('_')
         }
       case 'letter':
-        if (state.count !== 6) {
-          if (state[action.payload] === 0) {
-            const normalizedWord = state.word.normalize("NFD").replace(/\p{Diacritic}/gu, "");
-            if (normalizedWord.includes(action.payload)) {
-              return {
-                ...state, [action.payload]: 1, display: changeDisplayWord(state.word, action.payload, state.display)
-              }
-            } else {
-              return {
-                ...state, [action.payload]: 1, count: state.count + 1
-              }
-            }
-          } return { ...state }
-        } return { ...state }
+        if (state[action.payload] || state.count === 6) {
+          return { ...state }
+        } return (checkLetter(state, action.payload));
       default:
         throw new Error();
     }
   }
 
-  function changeDisplayWord(word, letter, display) {
-    const newDisplay = display;
-    Array.from(word).forEach((l, index) => {
-      if (l.normalize("NFD").replace(/\p{Diacritic}/gu, "") === letter) {
-        newDisplay[index] = l;
-      }
-    })
-    return newDisplay;
+  function checkLetter(state, letter) {
+    const normalizedWord = state.word.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+    const normalizedArray = Array.from(normalizedWord);
+    const newDisplay = state.display;
+
+    if (normalizedArray.includes(letter)) {
+      normalizedArray.forEach((l, index) => {
+        if (l === letter) {
+          newDisplay[index] = Array.from(state.word)[index];
+        }
+      })
+      if (emptySpaces(state.display) === 0) {
+        return { ...initialState, count: state.count, display: state.display }
+      } return { ...state, display: newDisplay, [letter]: 1 };
+    }
+    else if (state.count === 5) {
+      return { ...initialState, count: 6 }
+    } return { ...state, count: state.count + 1, [letter]: 1 }
+  }
+
+  function emptySpaces(display) {
+    return display.filter((l) => (l === '_')).length;
   }
 
   function getRandomInt(min, max) {
