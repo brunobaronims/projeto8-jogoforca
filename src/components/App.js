@@ -2,7 +2,7 @@ import Jogo from "./jogo/jogo";
 import Letras from "./letras/letras";
 import Chute from "./chute/chute";
 import * as image from '../assets/index';
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import * as Styled from './index'
 import palavras from "../palavras";
 
@@ -100,10 +100,6 @@ function getRandomInt(min, max) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    console.log(state.word);
-  })
 
   return (
     <Styled.Main>
