@@ -1,15 +1,11 @@
-import Jogo from "./components/Jogo";
-import Letras from "./components/Letras";
-import Chute from "./components/Chute";
-import * as image from './assets/index.js';
-import { useEffect, useReducer } from "react";
-import styled from "styled-components";
-import palavras from "./components/palavras";
+import Jogo from "./jogo/jogo";
+import Letras from "./letras/letras";
+import Chute from "./chute/chute";
+import * as image from '../assets/index';
+import { useReducer } from "react";
+import * as Styled from './index'
+import palavras from "./palavras";
 
-const Main = styled.main`
-dispay: flex;
-flex-direction: column;
-`;
 const images = Object.entries(image);
 const newGame = {
   a: 1, b: 1, c: 1, d: 1, e: 1, f: 1, g: 1, h: 1, i: 1, j: 1, k: 1, l: 1,
@@ -90,12 +86,8 @@ function getRandomInt(min, max) {
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    console.log(state);
-  })
-
   return (
-    <Main>
+    <Styled.Main>
       <Jogo images={images} state={state} dispatch={dispatch} />
       <section className='letras'>
         <Letras game={state} click={dispatch} />
@@ -103,6 +95,6 @@ export default function App() {
       <section className='chute'>
         <Chute state={state} dispatch={dispatch} />
       </section>
-    </Main>
+    </Styled.Main>
   );
 }
