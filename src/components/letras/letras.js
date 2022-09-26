@@ -11,7 +11,7 @@ export default function Letras({ game, click }) {
         {
           lettersTop.map((letter, index) => {
             return (
-              <Styled.Letter onClick={() => click({ type: 'letter', payload: letter })}
+              <Styled.Letter data-identifier='letter' onClick={() => click({ type: 'letter', payload: letter })}
                 enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
             );
           })
@@ -21,7 +21,7 @@ export default function Letras({ game, click }) {
         {
           lettersBottom.map((letter, index) => {
             return (
-              <Styled.Letter onClick={() => click({ type: 'letter', payload: letter })}
+              <Styled.Letter data-identifier='letter' onClick={() => click({ type: 'letter', payload: letter })}
                 enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
             );
           })

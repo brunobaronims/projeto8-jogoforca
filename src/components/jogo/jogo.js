@@ -5,11 +5,11 @@ export default function Jogo({ images, state, dispatch }) {
   return (
     <React.Fragment>
       <Styled.Container>
-        <img src={images[state.count][1]} />
+        <img data-identifier='game-image' src={images[state.count][1]} />
       </Styled.Container>
       <Styled.Container>
-        <Styled.Button onClick={() => dispatch({ type: 'newWord' })} >Escolher Palavra</Styled.Button>
-        <Styled.List>
+        <Styled.Button data-identifier='choose-word' onClick={() => dispatch({ type: 'newWord' })} >Escolher Palavra</Styled.Button>
+        <Styled.List  data-identifier='word'>
           {
             state.display.map((letter, index) => {
               return (
