@@ -22,6 +22,10 @@ transition: transform 0.1s ease-in-out;
   transform: ${props => props.enabled ? 'scale(1)': 'none'};
 }
 
+&:focus {
+  outline: none;
+}
+
 &:not(last-child) {
   margin-right: 0.4rem;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./index"
 
-export default function Letras({ game, click }) {
+export default function Letras({ game, eventHandler }) {
   const lettersTop = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
     "m"];
   const lettersBottom = ["n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -11,7 +11,7 @@ export default function Letras({ game, click }) {
         {
           lettersTop.map((letter, index) => {
             return (
-              <Styled.Letter data-identifier='letter' onClick={() => click({ type: 'letter', payload: letter })}
+              <Styled.Letter data-identifier='letter' onClick={() => eventHandler({ type: 'letterClick', payload: letter })}
                 enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
             );
           })
@@ -21,7 +21,7 @@ export default function Letras({ game, click }) {
         {
           lettersBottom.map((letter, index) => {
             return (
-              <Styled.Letter data-identifier='letter' onClick={() => click({ type: 'letter', payload: letter })}
+              <Styled.Letter data-identifier='letter' onClick={() => eventHandler({ type: 'letterClick', payload: letter })}
                 enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
             );
           })

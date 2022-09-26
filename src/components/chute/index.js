@@ -23,7 +23,7 @@ font-size: 1.5rem;
 font-weight: bold;
 margin: 0;
 padding: 0;
-cursor: pointer;
+cursor: ${props => props.enabled ? 'cursor': 'initial'};
 transition: transform 0.1s ease-in-out;
 
 
@@ -42,16 +42,24 @@ transition: transform 0.1s ease-in-out;
 `;
 
 export const Input = styled.input`
+background: ${props => props.enabled ? 'initial' : 'rgb(160,160,170)'};
 font-size: 1.6rem;
 height: 3rem;
 width: 30rem;
 margin: 0 2rem;
 padding: 0;
 border-radius: 0.3rem;
-border: 0.13rem solid black;
+border: ${props => props.enabled ? '0.13rem solid rgb(120,120,120)' : 'none'};
+color: ${props => props.enabled ? 'rgb(40,40,40)' : 'rgb(160,160,170)'};
+cursor: ${props => props.enabled ? 'text' : 'default'};
+spellcheck: false;
 
 &:focus {
   outline: none;
+}
+
+@media (max-width: 928px) {
+  text-align: center
 }
 `;
 
@@ -66,6 +74,8 @@ align-items: center;
 `;
 
 export const Text = styled.p`
+color: rgb(40,40,40);
+
 @media (max-width: 928px) {
   display: none;
 }

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-margin-top: 2.8rem;
+margin-top: 2.2rem;
 font-size: 1.5rem;
 width: 15rem;
-height: 5rem;
+height: 4.2rem;
 padding: 0.6rem 0.8rem;
 background: rgb(50,170,100);
 border-radius: 0.7rem;
@@ -22,6 +22,10 @@ transition: transform 0.1s ease-in-out;
 
 &:active {
   transform: scale(1);
+}
+
+&:focus {
+  outline: none;
 }
 `;
 

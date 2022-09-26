@@ -2,7 +2,7 @@ import Jogo from "./jogo/jogo";
 import Letras from "./letras/letras";
 import Chute from "./chute/chute";
 import * as image from '../assets/index';
-import { useReducer, useEffect } from "react";
+import { useReducer } from "react";
 import * as Styled from './index'
 import palavras from "../palavras";
 
@@ -10,35 +10,35 @@ const images = Object.entries(image);
 const newGame = {
   a: 1, b: 1, c: 1, d: 1, e: 1, f: 1, g: 1, h: 1, i: 1, j: 1, k: 1, l: 1,
   m: 1, n: 1, o: 1, p: 1, q: 1, r: 1, s: 1, t: 1, u: 1, v: 1, w: 1, x: 1,
-  y: 1, z: 1, word: '', display: [], count: 0, guess: '', inputEnabled: 1,
+  y: 1, z: 1, word: '', displayedWord: [], count: 0, currentGuess: '', inputEnabled: 1,
   status: ''
 };
 const initialState = {
   a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0, j: 0, k: 0, l: 0,
   m: 0, n: 0, o: 0, p: 0, q: 0, r: 0, s: 0, t: 0, u: 0, v: 0, w: 0, x: 0,
-  y: 0, z: 0, word: '', count: 0, display: [], guess: '', inputEnabled: 0,
+  y: 0, z: 0, word: '', count: 0, displayedWord: [], currentGuess: '', inputEnabled: 0,
   status: '', randInt: getRandomInt(0, palavras.length - 1)
 }
 
-function reducer(state, action) {
-  switch (action.type) {
+function reducer(game, event) {
+  switch (event.type) {
     case 'newWord':
       return {
-        ...newGame, word: palavras[state.randInt],
+        ...newGame, word: palavras[game.randInt],
         randInt: getRandomInt(0, palavras.length - 1),
-        display: Array(palavras[state.randInt].length).fill('_')
+        displayedWord: Array(palavras[game.randInt].length).fill('_')
       }
-    case 'letter':
-      if (!state[action.payload] || state.count === 6) { return { ...state } }
-      return (checkLetter(state, action.payload));
+    case 'letterClick':
+      if (!game[event.payload] || game.count === 6) { return { ...game } }
+      return (checkLetter(game, event.payload));
     case 'type':
-      if (state.inputEnabled) { return { ...state, guess: action.payload } }
-      return { ...state }
+      if (game.inputEnabled) { return { ...game, currentGuess: event.payload } }
+      return { ...game }
     case 'submit':
-      if (state.inputEnabled) { return checkGuess(state, action.payload); }
+      if (game.inputEnabled) { return checkGuess(game, event.payload); }
       else {
-        action.payload.preventDefault();
-        return { ...state }
+        event.payload.preventDefault();
+        return { ...game }
       }
     default:
       throw new Error();
@@ -48,7 +48,7 @@ function reducer(state, action) {
 function checkLetter(state, letter) {
   const normalizedWord = state.word.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const normalizedArray = Array.from(normalizedWord);
-  const newDisplay = state.display;
+  const newDisplay = state.displayedWord;
 
   if (normalizedArray.includes(letter)) {
     normalizedArray.forEach((l, index) => {
@@ -56,17 +56,17 @@ function checkLetter(state, letter) {
         newDisplay[index] = Array.from(state.word)[index];
       }
     })
-    if (emptySpaces(state.display) === 0) {
+    if (emptySpaces(state.displayedWord) === 0) {
       return {
         ...initialState, randInt: getRandomInt(0, palavras.length - 1),
-        count: state.count, display: state.display, status: 'won'
+        count: state.count, displayedWord: state.displayedWord, status: 'won'
       }
-    } return { ...state, display: newDisplay, [letter]: 0 };
+    } return { ...state, displayedWord: newDisplay, [letter]: 0 };
   }
   else if (state.count === 5) {
     return {
       ...initialState, randInt: getRandomInt(0, palavras.length - 1),
-      display: Array.from(state.word), count: 6, status: 'lost'
+      displayedWord: Array.from(state.word), count: 6, status: 'lost'
     }
   } return { ...state, count: state.count + 1, [letter]: 0 }
 }
@@ -76,7 +76,7 @@ function checkGuess(state, input) {
   if (input.target[0].value === state.word) {
     return {
       ...initialState, randInt: getRandomInt(0, palavras.length - 1),
-      count: state.count, display: Array.from(state.word),
+      count: state.count, displayedWord: Array.from(state.word),
       inputEnabled: 0, status: 'won'
     }
   } else if (input.target[0].value === '') {
@@ -84,7 +84,7 @@ function checkGuess(state, input) {
   }
   return {
     ...initialState, count: 6, randInt: getRandomInt(0, palavras.length - 1),
-    display: Array.from(state.word), inputEnabled: 0, status: 'lost'
+    displayedWord: Array.from(state.word), inputEnabled: 0, status: 'lost'
   }
 }
 
@@ -104,13 +104,13 @@ export default function App() {
   return (
     <Styled.Main>
       <Styled.Game>
-        <Jogo images={images} state={state} dispatch={dispatch} />
+        <Jogo images={images} game={state} eventHandler={dispatch} />
       </Styled.Game>
       <Styled.Letters>
-        <Letras game={state} click={dispatch} />
+        <Letras game={state} eventHandler={dispatch} />
       </Styled.Letters>
       <Styled.Guess>
-        <Chute state={state} dispatch={dispatch} />
+        <Chute game={state} eventHandler={dispatch} />
       </Styled.Guess>
     </Styled.Main>
   );
