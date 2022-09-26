@@ -12,6 +12,17 @@ border: none;
 color: #FFF;
 font-weight: bold;
 filter: drop-shadow(0 0 0.05rem grey);
+cursor: pointer;
+transition: transform 0.1s ease-in-out;
+
+&:hover {
+  background: rgb(60,190,110);
+  transform: scale(1.1);
+}
+
+&:active {
+  transform: scale(1);
+}
 `;
 
 export const List = styled.ul`
@@ -22,6 +33,10 @@ padding: 0;
 list-style: none;
 overflow: hidden;
 text-overflow: ellipsis;
+
+@media (max-width: 928px) {
+  margin-top: 2rem;
+}
 `;
 
 export const Letter = styled.li`
@@ -52,13 +67,29 @@ color: ${({ status }) => {
   }}
 }`;
 
+export const Image = styled.img`
+height: auto;
+width: 30rem;
+`;
+
 export const Container = styled.div`
 display: flex;
+margin: 2rem 0;
 
 &:last-child {
   margin-left: 10rem;
   width: 20rem;
   flex-direction: column;
   justify-content: space-between;
+}
+
+
+@media (max-width: 928px) {
+  justify-content: center;
+  align-items: center;
+  
+  &:last-child {
+    margin: 0 0 2rem 0;
+  }
 }
 `;
