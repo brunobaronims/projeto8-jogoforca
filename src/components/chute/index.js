@@ -39,6 +39,12 @@ transition: transform 0.1s ease-in-out;
 &:focus {
   outline: none;
 }
+
+@media (max-width: 928px) {
+  height: 2.5rem;
+  width: 6rem;
+  font-size: 1rem;
+}
 `;
 
 export const Input = styled.input`
@@ -59,7 +65,9 @@ spellcheck: false;
 }
 
 @media (max-width: 928px) {
-  text-align: center
+  text-align: center;
+  width: 13rem;
+  height: 2rem;
 }
 `;
 
@@ -70,6 +78,8 @@ align-items: center;
 @media (max-width: 928px) {
   width: 100%;
   flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 2rem;
 }
 `;
 

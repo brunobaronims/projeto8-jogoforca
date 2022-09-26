@@ -27,16 +27,21 @@ transition: transform 0.1s ease-in-out;
 &:focus {
   outline: none;
 }
+
+@media (max-width: 928px) {
+  width: 10rem;
+  height: 3rem;
+  font-size: 1rem;
+}
 `;
 
 export const List = styled.ul`
 display: flex;
 flex-direction: row;
+justify-content: center;
 margin: 0 0 1.6rem 0;
 padding: 0;
 list-style: none;
-overflow: hidden;
-text-overflow: ellipsis;
 
 @media (max-width: 928px) {
   margin-top: 2rem;
@@ -46,6 +51,7 @@ text-overflow: ellipsis;
 export const Letter = styled.li`
 font-size: 2rem;
 font-weight: bold;
+
 color: ${({ status }) => {
     switch (status) {
       case 'won':
@@ -58,8 +64,7 @@ color: ${({ status }) => {
   }
   };
 
-&:not(last-child) {
-  margin-right: ${({ status }) => {
+margin-right: ${({ status }) => {
     switch (status) {
       case 'won':
         return '0.1rem';
@@ -68,17 +73,31 @@ color: ${({ status }) => {
       default:
         return '1rem';
     }
-  }}
-}`;
+  }};
+
+&:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 928px) {
+  font-size: 1rem;
+}
+`;
 
 export const Image = styled.img`
 height: auto;
 width: 30rem;
+overflow: hidden;
+
+@media (max-width: 928px) {
+  width: 12rem;
+}
 `;
 
 export const Container = styled.div`
 display: flex;
 margin: 2rem 0;
+overflow: hidden;
 
 &:last-child {
   margin-left: 10rem;
@@ -91,9 +110,10 @@ margin: 2rem 0;
 @media (max-width: 928px) {
   justify-content: center;
   align-items: center;
+  width: 15rem;
   
   &:last-child {
-    margin: 0 0 2rem 0;
+    margin: 0;
   }
 }
 `;
