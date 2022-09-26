@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Letter = styled.button`
-background: ${props => props.enabled ? 'grey' : 'lightblue'};
-color: ${props => props.enabled ? 'darkgrey' : 'white'};
+background: ${props => props.enabled ? 'lightblue' : 'grey'};
+color: ${props => props.enabled ? 'white' : 'darkgrey'};
 border: none;
 border-radius: 0.2rem;
 `;
