@@ -2,7 +2,7 @@ import Jogo from "./jogo/jogo";
 import Letras from "./letras/letras";
 import Chute from "./chute/chute";
 import * as image from '../assets/index';
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import * as Styled from './index'
 import palavras from "../palavras";
 
@@ -73,7 +73,7 @@ function checkLetter(state, letter) {
 
 function checkGuess(state, input) {
   input.preventDefault();
-  if (input.target[0].value === state.word) {
+  if (input.target[0].value.toLowerCase() === state.word) {
     return {
       ...initialState, randInt: getRandomInt(0, palavras.length - 1),
       count: state.count, displayedWord: Array.from(state.word),
@@ -100,6 +100,10 @@ function getRandomInt(min, max) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    console.log(state.word);
+  })
 
   return (
     <Styled.Main>
