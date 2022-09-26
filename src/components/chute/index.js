@@ -68,6 +68,7 @@ spellcheck: false;
   text-align: center;
   width: 13rem;
   height: 2rem;
+  font-size: 1rem;
 }
 `;
 
