@@ -30,9 +30,9 @@ transition: transform 0.1s ease-in-out;
 }
 
 @media (max-width: 928px) {
-  width: 50%;
+  width: 10rem;
   height: 3rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 `;
 
