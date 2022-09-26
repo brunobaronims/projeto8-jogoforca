@@ -9,6 +9,7 @@ padding: 0.6rem 0.8rem;
 background: rgb(50,170,100);
 border-radius: 0.7rem;
 border: none;
+overflow: hidden;
 color: #FFF;
 font-weight: bold;
 filter: drop-shadow(0 0 0.05rem grey);
@@ -29,9 +30,9 @@ transition: transform 0.1s ease-in-out;
 }
 
 @media (max-width: 928px) {
-  width: 10rem;
+  width: 50%;
   height: 3rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 `;
 
@@ -90,7 +91,7 @@ width: 30rem;
 overflow: hidden;
 
 @media (max-width: 928px) {
-  width: 12rem;
+  width: 100%;
 }
 `;
 
@@ -109,10 +110,11 @@ margin: 2rem 0;
 @media (max-width: 928px) {
   justify-content: center;
   align-items: center;
-  width: 15rem;
+  width: 60%;
   
   &:last-child {
     margin: 0;
+    width: 100%;
   }
 }
 `;

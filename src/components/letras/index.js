@@ -37,17 +37,16 @@ transition: transform 0.1s ease-in-out;
 @media (max-width: 928px) {
   border-radius: 0.2rem;
   height: 2.5rem;
-  width: 1.2rem;
   min-width: 0.8rem;
   margin-right: 0.15rem;
   font-size: 0.8rem;
 
   &:last-child {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 
   &:first-child {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
   }
 }
 `;
@@ -62,7 +61,6 @@ padding: 0;
 width: 58rem;
 
 @media (max-width: 928px) {
-  max-width: 100%;
-  overflow: hidden;
+  width: 100%;
 }
 `;

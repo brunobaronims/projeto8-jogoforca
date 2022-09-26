@@ -6,7 +6,7 @@ align-items: center;
 font-size: 2rem;
 
 @media (max-width: 928px) {
-  width: 60%;
+  width: 100%;
   margin: 2rem 0;
   justify-content: center;
 }
@@ -66,7 +66,7 @@ spellcheck: false;
 
 @media (max-width: 928px) {
   text-align: center;
-  width: 13rem;
+  width: 100%;
   height: 2rem;
   font-size: 1rem;
 }
@@ -77,9 +77,8 @@ display: flex;
 align-items: center;
 
 @media (max-width: 928px) {
-  width: 100%;
+  width: 20rem;
   flex-direction: column;
-  overflow: hidden;
   margin-bottom: 2rem;
 }
 `;
