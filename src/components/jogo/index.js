@@ -97,7 +97,6 @@ overflow: hidden;
 export const Container = styled.div`
 display: flex;
 margin: 2rem 0;
-overflow: hidden;
 
 &:last-child {
   margin-left: 10rem;
