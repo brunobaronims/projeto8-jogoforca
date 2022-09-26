@@ -1,21 +1,32 @@
-import styled from "styled-components";
-
-const Letter = styled.button`
-background: ${props => props.enabled ? 'lightblue' : 'grey'};
-color: ${props => props.enabled ? 'white' : 'darkgrey'};
-border: none;
-border-radius: 0.2rem;
-`;
+import React from "react";
+import * as Styled from "./index"
 
 export default function Letras({ game, click }) {
-  const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-    "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
+  const lettersTop = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+    "m"];
+  const lettersBottom = ["n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   return (
-    alfabeto.map((letra, index) => {
-      return (
-        <Letter onClick={() => click({type: 'letter', payload: letra})} enabled={game[letra]} key={index}>{letra}</Letter>
-      );
-    })
+    <React.Fragment>
+      <Styled.Container>
+        {
+          lettersTop.map((letter, index) => {
+            return (
+              <Styled.Letter onClick={() => click({ type: 'letter', payload: letter })}
+                enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
+            );
+          })
+        }
+      </Styled.Container>
+      <Styled.Container>
+        {
+          lettersBottom.map((letter, index) => {
+            return (
+              <Styled.Letter onClick={() => click({ type: 'letter', payload: letter })}
+                enabled={game[letter]} key={index}>{letter.toLocaleUpperCase()}</Styled.Letter>
+            );
+          })
+        }
+      </Styled.Container>
+    </React.Fragment>
   );
 }

@@ -1,25 +1,24 @@
 import * as Styled from './index'
+import React from 'react';
 
 export default function Jogo({ images, state, dispatch }) {
   return (
-    <Styled.Game>
-      <div className='game-left'>
+    <React.Fragment>
+      <Styled.Container>
         <img src={images[state.count][1]} />
-      </div>
-      <div className='game-right'>
-        <div>
-          <Styled.StartButton onClick={() => dispatch({ type: 'newWord' })} >Escolher Palavra</Styled.StartButton>
-          <ul>
-            {
-              state.display.map((letter, index) => {
-                return (
-                  <li key={index} >{letter}</li>
-                );
-              })
-            }
-          </ul>
-        </div>
-      </div>
-    </Styled.Game>
+      </Styled.Container>
+      <Styled.Container>
+        <Styled.Button onClick={() => dispatch({ type: 'newWord' })} >Escolher Palavra</Styled.Button>
+        <Styled.List>
+          {
+            state.display.map((letter, index) => {
+              return (
+                <Styled.Letter status={state.status} key={index} >{letter}</Styled.Letter>
+              );
+            })
+          }
+        </Styled.List>
+      </Styled.Container>
+    </React.Fragment>
   );
 }
