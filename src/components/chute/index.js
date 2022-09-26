@@ -23,7 +23,7 @@ font-size: 1.5rem;
 font-weight: bold;
 margin: 0;
 padding: 0;
-cursor: ${props => props.enabled ? 'cursor': 'initial'};
+cursor: ${props => props.enabled ? 'pointer': 'initial'};
 transition: transform 0.1s ease-in-out;
 
 
